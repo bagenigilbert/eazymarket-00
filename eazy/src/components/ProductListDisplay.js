@@ -1,40 +1,43 @@
-// Import necessary components and functions from the React library and other files
 import React, { useState } from 'react';
+import { Row, Col } from 'react-bootstrap';
 import ProductCard from './ProductCard';
 import ProductDetails from './ProductDetails';
 
-// Define a new component named ProductListDisplay and pass it two props: products and selectedCategory
 const ProductListDisplay = ({ products, selectedCategory }) => {
-  // Create a state variable called selectedProductId and a function to update it (setSelectedProductId) with an initial value of null
+  // Define a state variable called selectedProductId and a function to update it called setSelectedProductId
   const [selectedProductId, setSelectedProductId] = useState(null);
 
   // Define a function called handleProductClick that takes a productId as an argument
   const handleProductClick = (productId) => {
-    // When the handleProductClick function is called, update the selectedProductId with the productId that was passed as an argument
+    // When the handleProductClick function is called, update the selectedProductId state with the selected productId
     setSelectedProductId(productId);
   };
 
-  // Filter the products based on the selected category
+  // Filter the products based on the selected category, if any
   const filteredProducts = selectedCategory
     ? products.filter((product) => product.category === selectedCategory)
     : products;
 
-  // Find the selected product from the filtered list using the selectedProductId
+  // Find the selected product object from the filtered products based on the selectedProductId state
   const selectedProduct = filteredProducts.find((product) => product.id === selectedProductId);
 
   // Return the JSX (React elements) to be rendered on the screen
   return (
     <div>
-      {/* If a selectedProduct exists (a product is clicked), render the ProductDetails component */}
+      {/* If a product is selected (selectedProduct is truthy), render the ProductDetails component with the selected product */}
       {selectedProduct && (
         <ProductDetails product={selectedProduct} onBackToList={() => setSelectedProductId(null)} />
       )}
-      {/* Render the list of ProductCards */}
-      <div>
+
+      {/* Render a row of product cards using the Bootstrap grid system */}
+      <Row xs={1} md={2} lg={4}> {/* Change the lg value to 4 to display four cards in a row on large screens */}
         {filteredProducts.map((product) => (
-          <ProductCard key={product.id} product={product} onClick={() => handleProductClick(product.id)} />
+          <Col key={product.id} className="mb-4">
+            {/* Render the ProductCard component, passing it the product object and the handleProductClick function */}
+            <ProductCard product={product} onClick={() => handleProductClick(product.id)} />
+          </Col>
         ))}
-      </div>
+      </Row>
     </div>
   );
 };

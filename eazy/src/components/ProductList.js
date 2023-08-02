@@ -1,4 +1,3 @@
-// This is the part where we show you the products (things we want to buy) and the cart where you put your favorite products!
 import React, { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import ProductCard from './ProductCard';
@@ -7,26 +6,26 @@ import CategoryFilter from './CategoryFilter';
 import ProductListDisplay from './ProductListDisplay';
 
 const ProductList = ({ products }) => {
-  // We create a special place (a "box") to keep track of the selected category (like a favorite type of product).
+  // Define a state variable called selectedCategory and a function to update it called setSelectedCategory
   const [selectedCategory, setSelectedCategory] = useState('');
 
-  // We make a list of different categories (types) of products from all the products we have.
+  // Create an array of unique categories by extracting them from the products array
   const categories = [...new Set(products.map((product) => product.category))];
 
-  // When you choose a category, we remember it and put it in our special "box."
+  // Define a function called handleSelectCategory that takes a category as an argument
   const handleSelectCategory = (category) => {
+    // When the handleSelectCategory function is called, update the selectedCategory state with the selected category
     setSelectedCategory(category);
   };
 
-  // Here we show you the products and the cart side by side!
+  // Return the JSX (React elements) to be rendered on the screen
   return (
     <Container>
       <Row>
-        {/* This part shows the products on the left side. */}
         <Col md={8}>
+          {/* Render the CategoryFilter component, passing it the categories, selectedCategory, and handleSelectCategory props */}
           <Row>
             <Col>
-              {/* We show you a dropdown list of categories so you can choose your favorite type of products. */}
               <CategoryFilter
                 categories={categories}
                 selectedCategory={selectedCategory}
@@ -34,16 +33,15 @@ const ProductList = ({ products }) => {
               />
             </Col>
           </Row>
+          {/* Render the ProductListDisplay component, passing it the products and selectedCategory props */}
           <Row>
             <Col>
-              {/* We call the ProductListDisplay component and give it the products and the category you chose. */}
               <ProductListDisplay products={products} selectedCategory={selectedCategory} />
             </Col>
           </Row>
         </Col>
-        {/* This part shows the cart on the right side. */}
+        {/* Render the Cart component in a separate column */}
         <Col md={4}>
-          {/* We show you the cart where you can put your favorite products! */}
           <Cart />
         </Col>
       </Row>
@@ -51,5 +49,5 @@ const ProductList = ({ products }) => {
   );
 };
 
-// We say that the ProductList is special and we can use it in our app.
+// Export the ProductList component so that other parts of the app can use it
 export default ProductList;

@@ -1,19 +1,18 @@
-// This component is all about showing you a dropdown list of categories (types) so you can choose your favorite type of products.
-
 import React from 'react';
 
-// The CategoryFilter component receives three important pieces of information (props) from its parent component:
-// - categories: It's a list of different categories (types) of products.
-// - selectedCategory: It's the category that you already chose (your favorite type of products).
-// - onSelectCategory: It's a special function that will be called when you choose a new category.
+// We create a special function called CategoryFilter.
+// It receives three important pieces of information (props) from its parent component:
+// - "categories": It's a list of different categories (types) of products.
+// - "selectedCategory": It's the category that you already chose (your favorite type of products).
+// - "onSelectCategory": It's a special function that will be called when you choose a new category.
 
 const CategoryFilter = ({ categories, selectedCategory, onSelectCategory }) => {
-  // Now, we show you the dropdown list of categories!
+  // Now, we show you a special dropdown list of categories!
   return (
     <div>
       {/* We create a dropdown list where you can choose your favorite type of products. */}
-      <select value={selectedCategory} onChange={(e) => onSelectCategory(e.target.value)}>
-        {/* We add an option at the top of the list that says "All Categories." */}
+      <select className="form-select mb-3" value={selectedCategory} onChange={(e) => onSelectCategory(e.target.value)}>
+        {/* We add a special option at the top of the list that says "All Categories." */}
         <option value="">All Categories</option>
         {/* For each category in the list, we create an option in the dropdown list. */}
         {categories.map((category) => (
